@@ -40,7 +40,7 @@ const App = (props: { children: React.ReactElement }) => {
         <CssBaseline />
         <Header />
         <PageWrapper>
-          <p>Hello, world!</p>
+          Hello, world!
         </PageWrapper>
       </Root>
     </ThemeProvider>
