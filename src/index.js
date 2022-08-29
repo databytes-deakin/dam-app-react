@@ -6,6 +6,7 @@ import {
   Route,
 } from "react-router-dom";
 import './index.css';
+import Home from './home';
 import App from './app';
 import Settings from './routes/settings';
 
@@ -18,7 +19,9 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={
-        <App />
+        <App>
+          <Home />
+        </App>
       } />
       <Route path="/settings" element={
         <App>

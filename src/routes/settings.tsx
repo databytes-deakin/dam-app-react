@@ -4,6 +4,7 @@ import { ArrowBack } from '@mui/icons-material';
 import { useFlags } from "../settings/flags-provider";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Page } from "../components/page";
 
 const SettingsList = styled(List)`
   min-width: 40vw;
@@ -24,7 +25,7 @@ const Settings = (props: { children: React.ReactElement }) => {
     );
   }, [getFlags, isDarkMode]);
   return (
-    <div>
+    <Page>
       <br />
       <Typography
         variant="h1"
@@ -85,7 +86,7 @@ const Settings = (props: { children: React.ReactElement }) => {
           </Button>
         </ListItem>
       </SettingsList>
-    </div>
+    </Page>
   );
 };
 
