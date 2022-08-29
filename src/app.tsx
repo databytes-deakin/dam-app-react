@@ -1,5 +1,6 @@
 import React from 'react';
 import './app.css';
+import './reset.css';
 import { Header } from './components/header'
 import { Page } from './components/page'
 import { CssBaseline } from '@mui/material';

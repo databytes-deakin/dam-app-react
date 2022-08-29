@@ -10,7 +10,6 @@ import Home from './home';
 import App from './app';
 import Settings from './routes/settings';
 
-
 const root = ReactDOM.createRoot(
   document.getElementById("root")
 );
