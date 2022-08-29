@@ -16,11 +16,6 @@ const Root = styled.div`
   }
 `;
 
-const PageWrapper = styled(Page)`
-  height: 100vh;
-`;
-
-
 const App = (props: { children: React.ReactElement }) => {
   let { getFlags } = useFlags();
   
