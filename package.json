@@ -49,5 +49,9 @@
     "@types/google-map-react": "^2.1.7",
     "@types/object-hash": "^2.2.1",
     "@types/styled-components": "^5.1.25"
+  },
+  "engines": {
+    "node": "16.x",
+    "npm": "8.5.5"
   }
 }
