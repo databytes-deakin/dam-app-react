@@ -9,13 +9,16 @@
     "@mui/material": "^5.8.5",
     "@mui/styled-engine-sc": "^5.8.0",
     "@types/jest": "^28.1.0",
-    "@types/node": "^17.0.38",
+    "@types/node": "^18.7.6",
     "@types/react": "^18.0.10",
     "@types/react-dom": "^18.0.5",
-    "react": "^18.1.0",
+    "google-map-react": "^2.2.0",
+    "google-maps-react": "^2.0.6",
+    "object-hash": "^3.0.0",
+    "react": "^18.2.0",
     "react-dom": "^18.1.0",
     "react-global-configuration": "^1.4.1",
-    "react-loader-spinner": "^5.1.5",
+    "react-loader-spinner": "^5.1.7-beta.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "styled-components": "^5.3.5",
@@ -27,7 +30,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://node-api:3080",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -44,6 +46,12 @@
     ]
   },
   "devDependencies": {
+    "@types/google-map-react": "^2.1.7",
+    "@types/object-hash": "^2.2.1",
     "@types/styled-components": "^5.1.25"
+  },
+  "engines": {
+    "node": "16.x",
+    "npm": "8.5.5"
   }
 }
