@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 const Home = (props: {}) => {
   const [showExportModal, setShowExportModal] = React.useState<boolean>(false);
   const [showMapModal, setShowMapModal] = React.useState<boolean>(false);
-  const [isClassifying, setIsClassifying] = React.useState<boolean>(false);
+  const [isDrawing, setIsDrawing] = React.useState<boolean>(false);
   const [notifications, setNotifications] = React.useState<{
       title: string,
       body: string
@@ -34,16 +34,12 @@ const Home = (props: {}) => {
     setNotifications([...notifications, {title, body}]);
   };
   
-  React.useEffect(() => {
-    console.log(notifications);
-  }, [notifications]);
-  
   return (
     <Page>
       <Wrapper>
         <Menu
-          isClassifying={isClassifying}
-          onClassifyClick={() => setIsClassifying(!isClassifying)}
+          isDrawing={isDrawing}
+          onClassifyClick={() => setIsDrawing(!isDrawing)}
           showExportModal={() => setShowExportModal(true)}
           showMapModal={() => setShowMapModal(true)}
         >
@@ -51,7 +47,7 @@ const Home = (props: {}) => {
             CLICK ME 2
           </button>
         </Menu>
-        <Map isClassifying={isClassifying} onRightClick={() => setIsClassifying(false)}/>
+        <Map setIsDrawing={setIsDrawing} isDrawing={isDrawing} />
       </Wrapper>
       <ExportModal open={showExportModal} onClose={() => setShowExportModal(false)}/>
       <MapModal open={showMapModal} onClose={() => setShowMapModal(false)}/>
