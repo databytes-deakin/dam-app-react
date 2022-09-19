@@ -63,7 +63,7 @@ export const Map = (props: {setIsDrawing: (value: SetStateAction<boolean>) => vo
         
         setShapes([...newShapes, shape]);
         
-        classify && classify(polygons);
+        classify && map && polygons && classify(coords, map);
       });
       
       maps.event.addListener(poly, 'rightclick', function(event: {domEvent: React.MouseEvent<HTMLElement>}) {
@@ -73,7 +73,7 @@ export const Map = (props: {setIsDrawing: (value: SetStateAction<boolean>) => vo
         // setShapes(shapes.filter((s) => s !== poly));
       });
     }
-  }, [coords, map, maps, polygons, props, shapes]);
+  }, [classify, coords, map, maps, polygons, props, shapes]);
   
   React.useEffect(() => {
     if(maps && coords && props.isDrawing){
