@@ -10,7 +10,7 @@ const Wrapper = styled(Paper)`
   height: 100vh;
 `;
 
-const DAMMenu = (props: {children: any, isClassifying: boolean, onClear?: () => void, onClassifyClick: () => void, showMapModal: () => void, showExportModal: () => void}) => {
+const DAMMenu = (props: {children: any, isDrawing: boolean, onClear?: () => void, onClassifyClick: () => void, showMapModal: () => void, showExportModal: () => void}) => {
   return(
     <Wrapper>
       <Typography variant="h3" textAlign="center">
@@ -30,7 +30,7 @@ const DAMMenu = (props: {children: any, isClassifying: boolean, onClear?: () => 
         <ListItem disablePadding>
           <ListItemButton onClick={() => props.onClassifyClick()}>
             <ListItemIcon> <FilterCenterFocus /> </ListItemIcon>
-            <ListItemText  primary={props.isClassifying ? 'Stop Exit selection' : 'Classify'} />
+            <ListItemText  primary={props.isDrawing ? 'Stop Exit selection' : 'Classify'} />
           </ListItemButton>
         </ListItem>
         {/* {props.isClassifying && 
