@@ -65,7 +65,7 @@ async function classifyPoly(geometry:any, map:any) {
     .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 15))
     .select(BANDS)
     .filterBounds(geometry)
-    .filterDate('2022-06-01', '2022-06-30');
+    .filterDate('2020-06-01', '2022-08-01');
   
   var final = await ic.median().classify(classifier);
   
