@@ -31,7 +31,7 @@ export const Map = (props: {setIsDrawing: (value: SetStateAction<boolean>) => vo
     setMap(maps.map);
     setMaps(maps.maps);
   }
-  const [classify, classificationResult] = useClassification();
+  const classify = useClassification();
   
   const finishDraw = useCallback(() => {
     if(maps){
@@ -58,6 +58,7 @@ export const Map = (props: {setIsDrawing: (value: SetStateAction<boolean>) => vo
         shape.setMap(null);
         
         polyInfo.fillColor = "#10D840";
+        polyInfo.strokeOpacity = 0.1;
         shape = new maps.Polygon(polyInfo);
         shape.setMap(map)
         

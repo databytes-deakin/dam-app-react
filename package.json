@@ -5,7 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
-    "@google/earthengine": "^0.1.322",
+    "@google/earthengine": "^0.1.317",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.5",
     "@mui/styled-engine-sc": "^5.8.0",
