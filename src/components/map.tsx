@@ -53,16 +53,15 @@ export const Map = (props: {setIsDrawing: (value: SetStateAction<boolean>) => vo
       
       poly.setMap(map);
       maps.event.addListener(poly, 'click', function(event: {domEvent: React.MouseEvent<HTMLElement>}) {
-        let newShapes = shapes;
-        let shape = newShapes.pop();
-        shape.setMap(null);
+        // let newShapes = shapes;
+        // let shape = newShapes.pop();
+        // shape.setMap(null);
         
-        polyInfo.fillColor = "#10D840";
-        polyInfo.strokeOpacity = 0.1;
-        shape = new maps.Polygon(polyInfo);
-        shape.setMap(map)
+        // polyInfo.fillColor = "#10D840";
+        // shape = new maps.Polygon(polyInfo);
+        // shape.setMap(map)
         
-        setShapes([...newShapes, shape]);
+        // setShapes([...newShapes, shape]);
         
         classify && map && polygons && classify(coords, map);
       });
