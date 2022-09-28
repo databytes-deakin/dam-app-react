@@ -8,6 +8,7 @@ import { Stack } from '@mui/system';
 import styled from 'styled-components';
 import { ExportModal } from './components/export-modal';
 import { MapModal } from './components/map-modal';
+import { useNotifications } from './services/notifications-context';
 
 const Wrapper = styled.div`
   display: flex;
@@ -19,20 +20,7 @@ const Home = (props: {}) => {
   const [showExportModal, setShowExportModal] = React.useState<boolean>(false);
   const [showMapModal, setShowMapModal] = React.useState<boolean>(false);
   const [isDrawing, setIsDrawing] = React.useState<boolean>(false);
-  const [notifications, setNotifications] = React.useState<{
-      title: string,
-      body: string
-    }[]>([]);
-  
-  const removeNotification = (index: number) => {
-    setNotifications(notifications.filter((n, i) => {
-      return i !== index
-    }));
-  };
-  
-  const addNotification = (title: string, body: string) => {
-    setNotifications([...notifications, {title, body}]);
-  };
+  const {notifications, addNotification, removeNotification } = useNotifications();
   
   return (
     <Page>

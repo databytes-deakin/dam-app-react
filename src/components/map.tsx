@@ -13,18 +13,18 @@ const Wrapper = styled.div`
 
 export const Map = (props: {setIsDrawing: (value: SetStateAction<boolean>) => void, isDrawing: boolean}) =>{
   const centre = {
-    lat: -37.419793,
-    lng: 145.112841
+    lat: -37.199732, 
+    lng: 145.906289
   };
-  const zoom = 8;
+  const zoom = 13;
   
   const [coords, setCoords] = React.useState<{lat: number, lng: number}[]>([]);
   const [polygons, setPolygons] = React.useState<{lat: number, lng: number}[][]>([]);
+  const [line, setLine] = React.useState<any>();
+  const [mouseLatLng, setMouseLatLng] = React.useState<any>();
   const [map, setMap] = React.useState<any>();
   const [maps, setMaps] = React.useState<any>();
   const [shapes, setShapes] = React.useState<any[]>([]);
-  
-  let selectedPolyRef = useRef();
   
   const handleApiLoaded = (maps: { map: any; maps: any; ref: Element | null; }) => {
     // console.log()
@@ -34,6 +34,7 @@ export const Map = (props: {setIsDrawing: (value: SetStateAction<boolean>) => vo
   const classify = useClassification();
   
   const finishDraw = useCallback(() => {
+    props.setIsDrawing(false);
     if(maps){
       
       props.setIsDrawing(false);
@@ -42,10 +43,10 @@ export const Map = (props: {setIsDrawing: (value: SetStateAction<boolean>) => vo
       setCoords([]);
       
       let polyInfo:any = {
-        path: coords,
+        path: [...coords, mouseLatLng],
         geodesic: true,
         strokeColor: "#202020",
-        strokeOpacity: 1.0,
+        strokeOpacity: 0.5,
         strokeWeight: 2,
       };
       
@@ -53,52 +54,36 @@ export const Map = (props: {setIsDrawing: (value: SetStateAction<boolean>) => vo
       
       poly.setMap(map);
       maps.event.addListener(poly, 'click', function(event: {domEvent: React.MouseEvent<HTMLElement>}) {
-        // let newShapes = shapes;
-        // let shape = newShapes.pop();
-        // shape.setMap(null);
+        const geometry = line.getPath().getArray().map((p:any) => ({lat: p.lat(), lng: p.lng()}));
+        console.log(geometry);
         
-        // polyInfo.fillColor = "#10D840";
-        // shape = new maps.Polygon(polyInfo);
-        // shape.setMap(map)
-        
-        // setShapes([...newShapes, shape]);
-        
-        classify && map && polygons && classify(coords, map);
-      });
-      
-      maps.event.addListener(poly, 'rightclick', function(event: {domEvent: React.MouseEvent<HTMLElement>}) {
-        // TODO: DELETE
-        // ley shape = event.domEvent.currentTarget.;
+        classify && map && polygons && classify(geometry, map);
         poly.setMap(null);
-        // setShapes(shapes.filter((s) => s !== poly));
+        line.setMap(null);
+        shapes.forEach((shape) => shape.setMap(null));
+        setShapes([]);
       });
     }
-  }, [classify, coords, map, maps, polygons, props, shapes]);
+  }, [classify, coords, line, map, maps, mouseLatLng, polygons, props, shapes]);
   
   React.useEffect(() => {
-    if(maps && coords && props.isDrawing){
-      let classificationPath = new maps.Polyline({
-        path: coords,
-        geodesic: true,
-        strokeColor: "#FF0000",
-        strokeOpacity: 1.0,
-        strokeWeight: 2,
-      });
-      
-      classificationPath.setMap(map);
-      
-      shapes.forEach((s) => s.setMap(null));
-      
-      setShapes([...shapes.slice(0, -1), classificationPath]);
+    if(maps && coords && props.isDrawing && line){
+      line.setPath([...coords, mouseLatLng]);
     }
-  }, [coords, map, maps, props.isDrawing, shapes]);
+  }, [coords, line, map, maps, mouseLatLng, props.isDrawing]);
   
+  React.useEffect(() => {
+    if(maps)
+      maps.event.addListener(map, 'mousemove', function(event: {latLng: any}) {
+        setMouseLatLng(event.latLng);
+      });
+  }, [map, maps]);
   
   return(
     <Wrapper
       onContextMenu={() => {
+        line.setPath([...coords, mouseLatLng, coords.at(0)]);
         finishDraw();
-        props.setIsDrawing(false);
       }}
     >
       <GoogleMapReact
@@ -108,9 +93,12 @@ export const Map = (props: {setIsDrawing: (value: SetStateAction<boolean>) => vo
         defaultZoom={zoom}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={handleApiLoaded}
-        onClick={({x, y, lat, lng, event}:ClickEventValue) => {
+        onClick={({x, y, lat, lng, event: {latLng: any}}:ClickEventValue) => {
           if(props.isDrawing) {
             setCoords([...coords, {lat, lng}]);
+            if(!line){
+              setLine(new maps.Polyline({map, path: [{lat, lng}], clickable:false}));
+            }
           }
         }}
       >

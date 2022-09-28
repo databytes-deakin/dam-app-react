@@ -30,7 +30,7 @@ const DAMMenu = (props: {children: any, isDrawing: boolean, onClear?: () => void
         <ListItem disablePadding>
           <ListItemButton onClick={() => props.onClassifyClick()}>
             <ListItemIcon> <FilterCenterFocus /> </ListItemIcon>
-            <ListItemText  primary={props.isDrawing ? 'Stop Exit selection' : 'Classify'} />
+            <ListItemText primary={props.isDrawing ? 'Stop Exit selection' : 'Classify'} />
           </ListItemButton>
         </ListItem>
         {/* {props.isClassifying && 

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
+import { useNotifications } from './notifications-context';
 
 // Load client library.
 // var ee = require('./gee');
@@ -9,6 +10,7 @@ declare const window: any;
 var ee = window.ee = require('@google/earthengine');
 
 export default function useClassification(): (classificationOptions: {lat: number, lng: number}[], map: any) => Promise<void>{
+  const { addNotification, removeNotification } = useNotifications();
   const classify = useCallback(async (coords: {lat: number, lng: number}[], map: any) => {
     if(!map){
       console.error("Map undefined. ")
@@ -33,6 +35,7 @@ export default function useClassification(): (classificationOptions: {lat: numbe
 
     // Authenticate using an OAuth pop-up.
     console.log('Authenticating...');
+    addNotification("Authentication", 'Authenticating...'); // currently doesn't work
     ee.data.authenticateViaOauth(process.env.REACT_APP_GEE_OAUTH_CLIENT_ID, initAndRun, (e:any) => {
       console.error('Authentication error: ' + e);
     }, null, function() {
